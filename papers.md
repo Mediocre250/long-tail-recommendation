@@ -1,5 +1,7 @@
 # ***Papers***
 
+- [***On Both Cold-Start and Long-Tail Recommendation with Social Data***](https://ieeexplore.ieee.org/document/8745499/)
+
 - [***A Dual Heterogeneous Graph Attention Network to Improve Long-Tail Performance for Shop Search in E-Commerce***](https://dl.acm.org/doi/10.1145/3394486.3403393)
 
 - [***An Adversarial Approach to Improve Long-Tail Performance in Neural Collaborative Filtering***](https://dl.acm.org/doi/10.1145/3269206.3269264)
@@ -22,7 +24,6 @@
 
 - [***Modeling Across-Context Attention For Long-Tail Query Classification in E-commerce***](https://dl.acm.org/doi/10.1145/3437963.3441822)
 
-- [***On Both Cold-Start and Long-Tail Recommendation with Social Data***](https://ieeexplore.ieee.org/document/8745499/)
 
 - [***Sequential and Diverse Recommendation with Long Tail***](https://www.ijcai.org/proceedings/2019/380)
 
