@@ -18,8 +18,6 @@
 
 - [***Long-tail Hashtag Recommendation for Micro-videos with Graph Convolutional Network***](https://dl.acm.org/doi/10.1145/3357384.3357912)
 
-- [***Long-Tailed Classification by Keeping the Good and Removing the Bad Momentum Causal Effect***](http://arxiv.org/abs/2009.12991)
-
 - [***LONLIES: Estimating Property Values for Long Tail Entities***](https://dl.acm.org/doi/10.1145/2911451.2911466)
 
 - [***Modeling Across-Context Attention For Long-Tail Query Classification in E-commerce***](https://dl.acm.org/doi/10.1145/3437963.3441822)
