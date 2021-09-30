@@ -1,0 +1,76 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+
+from selenium import webdriver
+import re
+
+class PaperFind:
+    def __init__(self,conferences_file_path='C:/Users/Administrator/Desktop/files/conferences.txt',
+                theme_file_path='C:/Users/Administrator/Desktop/files/themes.txt',
+                 year_file_path = 'C:/Users/Administrator/Desktop/files/years.txt'):
+        self.driver = webdriver.Chrome()
+        file = open(conferences_file_path,'r')
+        content = file.readlines()
+        cons = []
+        for item in content:
+            temp = item.strip('\n').split('|')
+            cons += temp
+        file = open(theme_file_path,'r')
+        self.list = [item.strip('\n') for item in file.readlines()]
+        file = open(year_file_path,'r')
+        self.years = [item.strip('\n') for item in file.readlines()]
+        file.close()
+        self.cons = cons
+        self.cons_index = 0
+        self.list_index = 0
+        self.url = 'https://dblp.uni-trier.de/search'
+        self.index = 0
+    
+    def generate_url(self,cons_name,search_theme):
+        return '{}?q={} venue:{}'.format(self.url,search_theme,cons_name)
+    
+    def search(self,url):
+        self.driver.get(url)
+    
+    def next(self):
+        if self.cons_index >= len(self.cons):
+            print('Search over...')
+            return
+        url = self.generate_url(self.cons[self.cons_index], self.list[self.list_index])
+        self.list_index += 1
+        if self.list_index >= len(self.list):
+            self.list_index = 0
+            self.cons_index += 1
+        self.driver.get(url)
+        if not self.isUseful():
+            print('Skipping an invalid pape...')
+            self.next()
+        else:
+            self.print_state()
+    
+    def print_state(self):
+        print('Current state:')
+        print('Conference name:{}'.format(self.cons[self.cons_index]))
+        print('Searching key words:{}'.format(self.list[self.list_index]))
+    
+    def isUseful(self):
+        pattern = '<li class="year">(.*?)</li>'
+        res = re.findall(pattern,self.driver.page_source)
+        for item in self.years:
+            if item in res:
+                return True
+        return False
+    
+    def full_search(self):
+        if self.index >= len(self.list):
+            print('Search over...')
+        cons = '|'.join(self.cons)
+        url = '{}?q={} venue:{}'.format(self.url,self.list[self.index],cons)
+        self.driver.get(url)
+        self.index += 1
+    
