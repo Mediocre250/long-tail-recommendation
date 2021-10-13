@@ -5,42 +5,35 @@
       <paths name="dell@113.54.151.36:6666 password">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/dujiangfeng/Dujiangfeng/ESAM-master" local="$PROJECT_DIR$" />
+            <mapping deploy="/home/dujiangfeng/seq-div-rec-master" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="dell@113.54.151.36:6666 password (1)">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/dujiangfeng/Dujiangfeng/seq-div-rec-master" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="dell@113.54.151.36:6666 password (2)">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/dujiangfeng/Dujiangfeng/ESAM-master" local="$PROJECT_DIR$" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="server_1">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/dell/Dujiangfeng/ESAM-master" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="server_2">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/dell/Dujiangfeng/ESAM-master" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="server_2 (1)">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/dell/Dujiangfeng/ESAM-master" local="$PROJECT_DIR$" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

@@ -22,7 +22,7 @@ class GRU4rec(nn.Module):
         
     def forward(self, input, hidden):
         emb = self.encoder(input)
-        emb = self.drop(self.encoder(input))
+        emb = self.drop(self.encoder(input))                                            #???
         output,hidden = self.gru(emb, hidden)
         
         #output = self.drop(output) #output size of (num_seq_len * batch * num hidden)

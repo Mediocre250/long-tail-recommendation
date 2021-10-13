@@ -4,6 +4,13 @@
     <list>
       <list>
         <remote-mappings server-id="python@sftp://dell@113.54.151.36:10086/home/dell/anaconda3/envs/tensorflow1/bin/python" />
+        <remote-mappings server-id="python@sftp://dell@113.54.151.36:6666/home/dell/anaconda3/envs/tensorflow/bin/python">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/home/dujiangfeng/Dujiangfeng/ESAM-master" />
+            </list>
+          </settings>
+        </remote-mappings>
       </list>
     </list>
   </component>

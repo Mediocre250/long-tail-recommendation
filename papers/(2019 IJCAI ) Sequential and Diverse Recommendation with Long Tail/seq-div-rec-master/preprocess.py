@@ -367,5 +367,5 @@ seen = seen.to_dict() #{item_idx to p(seen)}
 if not(os.path.exists(save_path+'seen.p')):
     pickle.dump(seen, open(save_path+'seen.p', 'wb'))
 
-
+#seen is the frequency of item i being consumed by users
 

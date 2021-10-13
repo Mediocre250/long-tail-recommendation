@@ -14,7 +14,7 @@ import torch.nn as nn
 from torch.autograd import Variable
 import torch.optim as optim
 import torch.nn.functional as F
-import rank_metrics
+
 import itertools
 
 from aurochs.buffalo import feature
@@ -23,6 +23,7 @@ path = 'data/n_clu6tail_cnt22/'
 bsz = 1024 # batch size
 eval_bsz = 1024
 cuda = True # Enable GPU or not
+
 
 ninp=500 # size of embedding
 nhid=100 # size of hidden layers

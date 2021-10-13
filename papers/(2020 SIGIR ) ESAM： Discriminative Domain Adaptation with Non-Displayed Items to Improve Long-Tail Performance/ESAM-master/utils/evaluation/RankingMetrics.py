@@ -26,7 +26,7 @@ def conputeTSNE(step, source_images, target_images):
     plt.figure(1, facecolor="white")
     plt.cla()
     plt.scatter(TSNE_hA[:, 0], TSNE_hA[:, 1], c=np.hstack((target_labels, source_labels,)), s=10, cmap=mpl.cm.jet)
-    plt.savefig('img_p_05/%d.png' % step)
+    plt.savefig('/home/dujiangfeng/Dujiangfeng/ESAM-master/%d.png' % step)
 # efficient version
 def precision_recall_ndcg_at_k(k, rankedlist, test_matrix):
     idcg_k = 0
