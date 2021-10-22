@@ -14,7 +14,7 @@ from sklearn.neighbors import kneighbors_graph
 
 import argparse
 
-from aurochs.buffalo import feature 
+
 
 
 cb_feat_size = 120

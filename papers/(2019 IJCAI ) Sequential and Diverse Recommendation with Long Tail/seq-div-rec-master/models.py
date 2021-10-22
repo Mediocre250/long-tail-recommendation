@@ -23,7 +23,10 @@ class GRU4rec(nn.Module):
     def forward(self, input, hidden):
         emb = self.encoder(input)
         emb = self.drop(self.encoder(input))                                            #???
+        print('embedding shape:{}'.format(emb.shape))
         output,hidden = self.gru(emb, hidden)
+        print('output shape:{}'.format(output.shape))
+        print('hidden shape:{}'.format(hidden.shape))
         
         #output = self.drop(output) #output size of (num_seq_len * batch * num hidden)
         #output = F.relu(output)

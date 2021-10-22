@@ -23,6 +23,27 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="dujiangfeng@113.54.151.36:10086">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/dujiangfeng/seq-div-rec-master" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="dujiangfeng@113.54.151.36:6666">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/dujiangfeng/seq-div-rec-master" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="dujiangfeng@113.54.151.36:6666 (2)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/dujiangfeng/seq-div-rec-master" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="server_2">
         <serverdata>
           <mappings>

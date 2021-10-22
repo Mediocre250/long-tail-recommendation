@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
@@ -5,7 +6,7 @@ import torch.optim as optim
 
 import random
 
-import sklearn.metrics.pairwise as pairwise
+# import sklearn.metrics.pairwise as pairwise
 import numpy as np
 
 
@@ -20,25 +21,30 @@ class ListMLE_loss_tail(nn.Module):
         super(ListMLE_loss_tail, self).__init__()
         self.cuda = cuda
 
-    def forward(self, output, target, tails):
+    def forward(self, output, target, tails):#output:batch_size*nitem
         """
         output: Variable type. bsz*nitem. Contain rank scores
         target: Variable type. bsz*1. Contain target item ID
         tails: List. Inconsistent length.  Contain auxillary item IDs if any
         """
-        target_scores = torch.squeeze(torch.gather(output, 1, target.view(-1,1)))
-        below = -torch.log(torch.sum(torch.exp(output),1))
+        target_scores = torch.squeeze(torch.gather(output, 1, target.view(-1,1)))#target_scores:batch_size
+        below = -torch.log(torch.sum(torch.exp(output),1))                                      #这里是target部分
         log_pl = target_scores + below
 
         temp = []
 
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
         for i in range(len(tails)):
             if len(tails[i]) > 0 : # if any tail items exist
                 tail_idx = Variable(torch.LongTensor(tails[i]))
-                if self.cuda: tail_idx = tail_idx.cuda()
-                scores = torch.index_select(output[i,:], 0, tail_idx)
-                others_scores_tail = torch.sum(torch.exp(output[i,:]))-(torch.exp(target_scores[i])+torch.sum(torch.exp(scores)))
-                log_pl_tail = get_PL_dist(scores, others_scores_tail)
+                if self.cuda: tail_idx = tail_idx.to(device)
+                print('The shape of output:{},tail_idx:{}'.format(output.shape,tail_idx.shape))
+                print(tail_idx.data)
+                scores = torch.index_select(output[i,:], 0, tail_idx)#score:batch_size scores of relevant tail items
+
+                others_scores_tail = torch.sum(torch.exp(output[i,:]))-(torch.exp(target_scores[i])+torch.sum(torch.exp(scores)))           #remove target and the relevant tail items
+                log_pl_tail = get_PL_dist(scores, others_scores_tail)                          #这里是long tail items 部分
 
                 log_pl[i] = log_pl[i].clone() + log_pl_tail
 
@@ -74,15 +80,15 @@ class ListMLE_loss(nn.Module):
         return neg_like, temp
 
 
-def get_PL_dist(scores, others_scores_tail):
+def get_PL_dist(scores, others_scores_tail):#The logP
 
-    above = torch.sum(scores)
+    above = torch.sum(scores)#
 
     #flip
     below = flip(scores) # for cumsum
     below = torch.exp(below)
     below = torch.cumsum(below, 0)
-    below = torch.log(below+ others_scores_tail)
+    below = torch.log(below+ others_scores_tail)#below:tail_idx
     below_sum = torch.sum(below)
 
     log_pl = above - below_sum
@@ -225,17 +231,17 @@ def get_long_tail_measures2(idx, dict_item, eval_bsz, cb_items,  seen, topk):
     return p_unseen, rec_set #, avg_sem_dis
 
 
-def get_sem_dis(items, cb_items):
-    #get averaged similarity using cb_feat
-
-    cb_feats = [cb_items.feats[cb_items.idmap[item.replace("_", "|")]] for item in items]
-
-
-    sem_dis = 1-pairwise.cosine_similarity(cb_feats)
-    num_rank_idx = float(len(items))
-    avg_sem_dis = (np.sum(np.tril(sem_dis)))/(num_rank_idx*(num_rank_idx-1)/2)
-
-    return avg_sem_dis
+# def get_sem_dis(items, cb_items):
+#     #get averaged similarity using cb_feat
+#
+#     cb_feats = [cb_items.feats[cb_items.idmap[item.replace("_", "|")]] for item in items]
+#
+#
+#     sem_dis = 1-pairwise.cosine_similarity(cb_feats)
+#     num_rank_idx = float(len(items))
+#     avg_sem_dis = (np.sum(np.tril(sem_dis)))/(num_rank_idx*(num_rank_idx-1)/2)
+#
+#     return avg_sem_dis
 
 
 #####################################
@@ -457,6 +463,7 @@ def get_batch(source, bsz, cuda):
     left_sess_id = bsz
     data = source[:bsz]
     nones = []
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     while True:
         target = [item.next for item in data]
         if None in target:
@@ -481,8 +488,8 @@ def get_batch(source, bsz, cuda):
 
 
         if cuda:
-            data_tensor = data_tensor.cuda()
-            target_tensor = target_tensor.cuda()
+            data_tensor = data_tensor.to(device)
+            target_tensor = target_tensor.to(device)
 
         yield Variable(data_tensor), Variable(target_tensor), target_tail_list, nones
 
@@ -491,6 +498,7 @@ def get_batch(source, bsz, cuda):
 
 def repackage_hidden(h):
     """Wraps hidden states in new Variable, to detach them from their history."""
+    print (h)
     if type(h) == Variable:
         return Variable(h.data)
     else:
